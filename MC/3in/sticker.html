@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3×2 Sticker Sheet Builder (3" sticker, 3.451" cut)</title>
+  <link rel="stylesheet" href="../main.css">
+  <link rel="icon" type="image/png" href="../logo.png">
+</head>
+<body>
+  <header>
+    <div class="left">
+      <button class="back-btn" type="button" onclick="location.href='../index.html'" aria-label="Home" title="Home">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="title-wrap">
+        <h1 id="title" class="editable-title" contenteditable="plaintext-only" title="Click to rename">3×2 Sticker Sheet Builder</h1>
+        <span class="hint">— 3" round sticker, 3.451" cut (image fills cut circle)</span>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="btn" for="bulkInput">Bulk add images…</label>
+      <input id="bulkInput" type="file" accept="image/*" multiple />
+      <button id="clearAll">Clear all</button>
+      <button id="exportPDF">Export PDF</button>
+    </div>
+  </header>
+  <main>
+    <div class="stage-wrap">
+      <div id="pages"></div>
+      <div class="add-row"><button id="addPage">+ Add page</button></div>
+    </div>
+    <aside id="sidebar" hidden>
+      <h2>Layout Settings</h2>
+      <div class="row"><div>Sticker Size</div><div><code>3 in</code> sticker • <code>3.451 in</code> cut</div></div>
+  <div class="row"><label for="gapX">Column gap (in)</label><input id="gapX" type="number" step="0.05" min="0" value="0.65"></div>
+  <div class="row"><label for="gapY">Row gap (in)</label><input id="gapY" type="number" step="0.05" min="0" value="0.15"></div>
+      <div class="row"><label for="dpi">Export DPI</label><input id="dpi" type="number" step="50" min="150" value="300"></div>
+      <div class="row"><label for="scale">Preview scale</label><input id="scale" type="number" step="0.05" min="0.2" max="1.2" value="0.9"></div>
+  <p class="hint">Grid per page: <b>2-1-2 rows</b> (top row 2 across, middle row 1 centered, bottom row 2 across). Only one ring is shown per cell: <span style="color:#2a49d0">blue = cut (3.451")</span>. Images fill the entire cut circle and are clipped to it. Use zoom and drag to position.</p>
+    </aside>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="sticker.js"></script>
+</body>
+</html>
