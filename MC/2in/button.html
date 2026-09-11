@@ -3,47 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3×4 Circle Template PDF Builder (2" inner / 2½" outer)</title>
+  <title>MC 2in Button Template</title>
+  <link rel="stylesheet" href="../home.css">
   <link rel="stylesheet" href="../main.css">
   <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
 </head>
 <body>
+  <div id="mySidenav" class="sidenav menu-width">
+      <h1 class="sidenav-h1">Instructions</h1>
+      <h2 class="sidenav-h2">2in Button</h2>
+      <p class="sidenav-p">
+        To start either click inside a circle to add an image or click 
+        <span class="material-symbols-outlined">folder_open</span>
+        , to add multiple images at once.
+      </p>
+      <div class="sidenav-spacer"></div>
+      <p class="sidenav-p">
+        For best result make sure your the part of your image you want to see is in the <span class="red-circle">red circle</span>.
+      </p>
+      <div class="sidenav-spacer"></div>
+      <p class="sidenav-p">
+        Tools:
+      </p>
+      <div class="sidenav-spacer"></div>
+      <ul>
+        <li><button disabled="true">✕</button><p>- delete the image from the circle</p></li>
+        <li><button>+</button><p>- make image larger</p></li>
+        <li><button>−</button><p>- make image smaller</p></li>
+        <li><button>Reset</button><p>- reset image to original size and position</p></li>
+        <li><button>⧉</button><p>- duplicate image to next circle</p></li>
+      </ul>
+      <div class="sidenav-spacer"></div>
+      <p class="sidenav-p">
+        Once you have the template filled out, 
+        click the <span class="material-symbols-outlined">download</span> 
+        button at the top right of the screen and 
+        email <a href="mailto:mediacenter@harding.edu">mediacenter@harding.edu</a> the template! 
+      </p>
+  </div>
   <header>
     <div class="left">
-      <button class="back-btn" type="button" onclick="location.href='../index.html'" aria-label="Home" title="Home">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
+      <button class="back-btn" type="button" onclick="location.href='../home.html'" aria-label="Home" title="Home">
+        <span class="material-symbols-outlined">home</span>
       </button>
+
       <div class="title-wrap">
-        <h1 id="title" class="editable-title" contenteditable="plaintext-only" title="Click to rename">3×4 Circle Template PDF Builder</h1>
-        <span class="hint">— inner 2&quot; (visible), outer 2½&quot; (cut)</span>
+        <h1 id="title" class="editable-title" contenteditable="plaintext-only" title="Click to rename">MC 2in Button Template</h1>
       </div>
     </div>
     <div class="controls">
-      <label class="btn" for="bulkInput">Bulk add images…</label>
-      <input id="bulkInput" type="file" accept="image/*" multiple />
-      <button id="clearAll">Clear all</button>
-      <button id="exportPDF">Export PDF</button>
+      <div class="tool-wrapper">
+        <label class="btn" for="bulkInput" aria-label="Bulk Add Images" title="Bulk Add Images">
+          <span class="material-symbols-outlined">folder_open</span>
+        </label>
+        <input id="bulkInput" type="file" accept="image/*" multiple />
+        <label>Select Images</label>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="tool-wrapper">
+        <button id="clearAll" aria-label="Delete All" title="Delete All">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+        <label>Delete All</label>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="tool-wrapper">
+        <button id="exportPDF">
+          <span class="material-symbols-outlined" aria-label="Download" title="Download">download</span>
+        </button>
+        <label>Download</label>
+      </div>
+      <div onclick="toggleNav(this)" id="menu-icon" class="change">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+      </div>
     </div>
   </header>
-  <main>
+
+  <div id ="main" class="menu-margin">
     <div class="stage-wrap">
       <div id="pages"></div>
       <div class="add-row"><button id="addPage">+ Add page</button></div>
     </div>
-    <aside id="sidebar" hidden>
-      <h2>Layout Settings</h2>
-      <div class="row"><div>Inner / Outer</div><div><code>2 in</code> / <code>2½ in</code></div></div>
-  <div class="row"><label for="gapX">Column gap (in)</label><input id="gapX" type="number" step="0.05" min="0" value="0.30"></div>
-  <div class="row"><label for="gapY">Row gap (in)</label><input id="gapY" type="number" step="0.05" min="0" value="0.15"></div>
-      <div class="row"><label for="dpi">Export DPI</label><input id="dpi" type="number" step="50" min="150" value="300"></div>
-      <div class="row"><label for="scale">Preview scale</label><input id="scale" type="number" step="0.05" min="0.2" max="1.2" value="0.9"></div>
-      <p class="hint">Two rings are shown per cell: <span style="color:#e63c3c">red = visible (2")</span>, <span style="color:#2a49d0">blue = cut (2½")</span>. Images fit/fill to the inner (red) circle, but the artwork is clipped to the outer (blue) circle for bleed control. Content inside the red ring is guaranteed visible after cutting.</p>
-    </aside>
-  </main>
-  <!-- jsPDF (UMD) -->
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="main.js"></script>
+  <script src="../shared.js"></script>
+  <script src="button.js"></script>
+  <script src="../home.js"></script>
 </body>
 </html>

@@ -1,0 +1,184 @@
+:root { 
+    --topbar-offset: 64px;
+    --sidenav-size: 300px;
+    --background-color: #599bd2;
+    --primary-color: #428bc8; 
+    --secondary-color: #2a7abd;
+    --primary-dark-color: #0d548e; 
+    --mc-white: #ffffff;
+    --mc-white-2: #f0f0f0;
+    --mc-red: #c00c0c;
+}
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0px;
+    background: var(--background-color); 
+    color: var(--mc-white); 
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+#menu-icon {
+    /* padding-left:20px; */
+    width: fit-content;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: var(--primary-color);
+    overflow-x: hidden;
+    padding-top: 90px;
+    transition: 0.5s;
+    justify-content: center;
+}
+
+.home-header {
+    padding: 5px 10px;
+    display: flex;
+    border-bottom: 1px solid var(--mc-red); 
+    position:fixed; top: 0; 
+    width: 100%;
+    height: 90px;
+    align-items: center;
+    justify-content: right;
+    background: var(--primary-dark-color); 
+    backdrop-filter: blur(6px); z-index: 10; 
+}
+
+.sidenav-h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.sidenav-h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 15px;
+}
+
+.sidenav-p {
+    margin: 10px;
+    font-size: 18px;
+}
+
+.sidenav-spacer {
+    height: 10px;
+}
+
+.red-circle {
+    font-weight: bold;
+    color: red;
+    text-shadow: 0px 1px 0px var(--primary-dark-color);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0 0px 0 15px;
+    padding: 0;
+    
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+li button {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #3a4a86;
+    border: 1px solid #5063a8;
+    font-size: 12px;
+    pointer-events: auto;
+}
+li p {
+    font-size: 12px;
+}
+
+.sidenav a {
+    color:var(--mc-white);
+}
+
+.sidenav a:hover {
+    color:var(--secondary-color);
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.menu-width {
+    width: var(--sidenav-size);
+}
+
+.menu-margin {
+    margin-right: var(--sidenav-size);
+}
+
+#menu-icon .line1, .line2, .line3 {
+    width: 36px;
+    height: 3px;
+    background-color: var(--mc-white-2);
+    margin: 10px 0;
+    transition: 0.4s;
+}
+
+.change .line1 {
+    transform: translate(0, 13px) rotate(-45deg);
+}
+
+.change .line2 {
+    opacity: 0;
+}
+
+.change .line3 {
+  transform: translate(0, -13px) rotate(45deg);
+}
+
+#main {
+    transition: .5s;
+    padding-top: 100px;
+}
+
+.home-grid { 
+    position: sticky; 
+    transition: 0.5s;
+    inset: 0; 
+    display: grid; 
+    place-items: center; 
+    grid-template-columns: repeat(var(--cols), calc(var(--outer-dia) * var(--preview-scale)));
+    grid-template-rows: repeat(var(--rows), calc(var(--outer-dia) * var(--preview-scale)));
+    /* Always center the entire grid area within the page regardless of gap */
+     place-content: center;
+    /* padding: calc(var(--gap-y, var(--gap)) / 2) calc(var(--gap-x, var(--gap)) / 2); */
+    gap: var(--gap-y, var(--gap)) var(--gap-x, var(--gap)); z-index: 0; 
+}
+  .card { margin: 0 0 16px 0; background: var(--primary-color); border: 1px solid var(--mc-red); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .card .preview { background: var(--secondary-color); display: flex; align-items: center; justify-content: center; padding: 20px; height: 420px; overflow: hidden; }
+    .card .meta { padding: 12px; display: grid; gap: 8px; }
+    .card h2 { font-size: 16px; margin: 0; color: var(--mc-white); }
+    .card p { margin: 0; color: var(--mc-white-2); font-size: 12px; }
+    .card a.btn { text-decoration: none; display: inline-block; background: var(--primary-dark-color); color: var(--mc-white); border: 1px solid var(--primary-dark-color); border-radius: 10px; font-weight: 600; padding: 8px 10px; text-align: center; }
+    .card a.btn:hover { background: var(--secondary-color); }
+  /* Scale SVG previews responsively and center them */
+  .thumb { width: 100%; height: 100%; display: block; }
+  .card .preview .thumb { margin: 0 auto; }
+    /* Simple ring colors for previews */
+    .outer { stroke: #2a49d0; stroke-width: 2; fill: none; }
+    .inner { stroke: #e63c3c; stroke-width: 2; fill: none; }
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

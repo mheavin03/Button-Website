@@ -6,6 +6,7 @@
   <title>Button & Sticker Templates</title>
   <link rel="stylesheet" href="main.css">
   <link rel="icon" type="image/png" href="./logo.png">
+  <script src="main.js"></script>
   <style>
   /* Home page gallery styling */
   :root { 
@@ -18,13 +19,17 @@
     --mc-white-2: #f0f0f0;
     --mc-red: #c00c0c;
   }
-  body { background: var(--background-color); color: var(--mc-white); }
+  /* body { background: var(--background-color); color: var(--mc-white); }
     header { padding: 18px 20px; border-bottom: 1px solid var(--mc-red); position: sticky; top: 0; background: var(--primary-dark-color); backdrop-filter: blur(6px); z-index: 10; }
     h1 { font-size: 20px; margin: 0; font-weight: 700; letter-spacing: 0.2px; }
-  main { padding: 18px; padding-top: calc(18px + var(--topbar-offset)); }
-  .grid { display: block; padding-top: 70px; }
-    .card { background: var(--primary-color); border: 1px solid var(--mc-red); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-  .card { margin: 0 0 16px 0; }
+  /*main { padding: 18px; padding-top: calc(18px + var(--topbar-offset)); }*/
+  .grid { display: flex; flex-direction: column; position: sticky; }
+  .btnDropdown {
+    display: block;
+    width: stretch;
+    border-radius: 0;
+  }
+  .card { margin: 0 0 16px 0; background: var(--primary-color); border: 1px solid var(--mc-red); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
   .card .preview { background: var(--secondary-color); display: flex; align-items: center; justify-content: center; padding: 20px; height: 420px; overflow: hidden; }
     .card .meta { padding: 12px; display: grid; gap: 8px; }
     .card h2 { font-size: 16px; margin: 0; color: var(--mc-white); }
@@ -45,149 +50,154 @@
   </header>
   <main>
     <div class="grid">
-      <!-- 2" Button (3x4) -->
-      <section class="card">
-        <div class="preview">
-          <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
-            <!-- 3 cols x 4 rows circles -->
-            <!-- Cell size -->
-            <!-- Outer r=200, inner r=160; margin 100; step 480 -->
-            <g transform="translate(100,100)">
-              <!-- row 0 -->
-              <g transform="translate(0,0)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+        
+      <div id="mybtnDropdown" class="button-dropdown-content">
+        <!-- 2" Button (3x4) -->
+        <section class="card">
+          <div class="preview">
+            <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
+              <!-- 3 cols x 4 rows circles -->
+              <!-- Cell size -->
+              <!-- Outer r=200, inner r=160; margin 100; step 480 -->
+              <g transform="translate(100,100)">
+                <!-- row 0 -->
+                <g transform="translate(0,0)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                </g>
+                <!-- row 1 -->
+                <g transform="translate(0,480)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                </g>
+                <!-- row 2 -->
+                <g transform="translate(0,960)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                </g>
+                <!-- row 3 -->
+                <g transform="translate(0,1440)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
+                </g>
               </g>
-              <!-- row 1 -->
-              <g transform="translate(0,480)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-              </g>
-              <!-- row 2 -->
-              <g transform="translate(0,960)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-              </g>
-              <!-- row 3 -->
-              <g transform="translate(0,1440)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/><circle class="inner" cx="200" cy="200" r="160"/></g>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="meta">
-          <h2>2" Button — 3×4</h2>
-          <p>Inner 2", Outer 2½"</p>
-          <a class="btn" href="2in/button.html">Open</a>
-        </div>
-      </section>
+            </svg>
+          </div>
+          <div class="meta">
+            <h2>2" Button — 3×4</h2>
+            <p>Inner 2", Outer 2½"</p>
+            <a class="btn" href="2in/button.html">Open</a>
+          </div>
+        </section>
 
-      <!-- 3" Button (2x3) -->
-      <section class="card">
-        <div class="preview">
-          <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
-            <g transform="translate(120,120)">
-              <!-- row 0 -->
-              <g transform="translate(0,0)">
-                <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
-                <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+        <!-- 3" Button (2x3) -->
+        <section class="card">
+          <div class="preview">
+            <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
+              <g transform="translate(120,120)">
+                <!-- row 0 -->
+                <g transform="translate(0,0)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                  <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                </g>
+                <!-- row 1 -->
+                <g transform="translate(0,600)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                  <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                </g>
+                <!-- row 2 -->
+                <g transform="translate(0,1200)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                  <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
+                </g>
               </g>
-              <!-- row 1 -->
-              <g transform="translate(0,600)">
-                <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
-                <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
-              </g>
-              <!-- row 2 -->
-              <g transform="translate(0,1200)">
-                <g transform="translate(0,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
-                <g transform="translate(720,0)"><circle class="outer" cx="300" cy="300" r="300"/><circle class="inner" cx="300" cy="300" r="257.14"/></g>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="meta">
-          <h2>3" Button — 2×3</h2>
-          <p>Inner 3", Outer 3½"</p>
-          <a class="btn" href="3in/button.html">Open</a>
-        </div>
-      </section>
+            </svg>
+          </div>
+          <div class="meta">
+            <h2>3" Button — 2×3</h2>
+            <p>Inner 3", Outer 3½"</p>
+            <a class="btn" href="3in/button.html">Open</a>
+          </div>
+        </section>
+      </div>
 
-      <!-- 2.5" Sticker (3x4) -->
-      <section class="card">
-        <div class="preview">
-          <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
-            <g transform="translate(100,100)">
-              <!-- row 0 -->
-              <g transform="translate(0,0)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+      <div id="mystickerDropdown" class="sticker-dropdown-content">
+        <!-- 2.5" Sticker (3x4) -->
+        <section class="card">
+          <div class="preview">
+            <svg class="thumb" viewBox="0 0 1560 2040" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" rx="50" ry="50" width="1560" height="2040" fill="#FFFFEE" />
+              <g transform="translate(100,100)">
+                <!-- row 0 -->
+                <g transform="translate(0,0)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                </g>
+                <!-- row 1 -->
+                <g transform="translate(0,480)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                </g>
+                <!-- row 2 -->
+                <g transform="translate(0,960)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                </g>
+                <!-- row 3 -->
+                <g transform="translate(0,1440)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                  <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
+                </g>
               </g>
-              <!-- row 1 -->
-              <g transform="translate(0,480)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-              </g>
-              <!-- row 2 -->
-              <g transform="translate(0,960)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-              </g>
-              <!-- row 3 -->
-              <g transform="translate(0,1440)">
-                <g transform="translate(0,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(480,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-                <g transform="translate(960,0)"><circle class="outer" cx="200" cy="200" r="200"/></g>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="meta">
-          <h2>2.5" Sticker — 3×4</h2>
-          <p>Single ring (cut)</p>
-          <a class="btn" href="2in/sticker.html">Open</a>
-        </div>
-      </section>
+            </svg>
+          </div>
+          <div class="meta">
+            <h2>2.5" Sticker — 3×4</h2>
+            <p>Single ring (cut)</p>
+            <a class="btn" href="2in/sticker.html">Open</a>
+          </div>
+        </section>
 
-      <!-- 3" Sticker (2-1-2) -->
-      <section class="card">
-        <div class="preview">
-          <svg class="thumb" viewBox="0 0 720 960" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="0" rx="50" ry="50" width="720" height="960" fill="#FFFFEE" />
-            <g transform="translate(60,60)">
-              <!-- row 0: 2 across -->
-              <g transform="translate(0,0)">
-                <g transform="translate(0,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
-                <g transform="translate(360,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+        <!-- 3" Sticker (2-1-2) -->
+        <section class="card">
+          <div class="preview">
+            <svg class="thumb" viewBox="0 0 720 960" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" rx="50" ry="50" width="720" height="960" fill="#FFFFEE" />
+              <g transform="translate(60,60)">
+                <!-- row 0: 2 across -->
+                <g transform="translate(0,0)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+                  <g transform="translate(360,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+                </g>
+                <!-- row 1: 1 centered -->
+                <g transform="translate(0,300)">
+                  <g transform="translate(180,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+                </g>
+                <!-- row 2: 2 across -->
+                <g transform="translate(0,600)">
+                  <g transform="translate(0,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+                  <g transform="translate(360,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
+                </g>
               </g>
-              <!-- row 1: 1 centered -->
-              <g transform="translate(0,300)">
-                <g transform="translate(180,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
-              </g>
-              <!-- row 2: 2 across -->
-              <g transform="translate(0,600)">
-                <g transform="translate(0,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
-                <g transform="translate(360,0)"><circle class="outer" cx="120" cy="120" r="105"/></g>
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="meta">
-          <h2>3" Sticker — 2-1-2</h2>
-          <p>Cut 3.451", Single ring</p>
-          <a class="btn" href="3in/sticker.html">Open</a>
-        </div>
-      </section>
+            </svg>
+          </div>
+          <div class="meta">
+            <h2>3" Sticker — 2-1-2</h2>
+            <p>Cut 3.451", Single ring</p>
+            <a class="btn" href="3in/sticker.html">Open</a>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 </body>

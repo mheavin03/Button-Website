@@ -1,8 +1,9 @@
-// 2in round sticker version (no inner circle)
-// Based on 2in button logic, but image fits the cut circle (outer) and no inner ring is shown
+// main-3in.js - 3 inch button version
+// This is a copy of main.js with 3"/3.5" as the default sizes
 
 (function(){
   'use strict';
+  // PDF export styling flags
   var SHOW_DELETE_CONFIRM = false;
   var USE_OBJECT_URLS = true;
   try {
@@ -11,19 +12,19 @@
       console.log('[env] forcing DataURL mode due to origin/protocol', { origin: location.origin, protocol: location.protocol });
     }
   } catch(e) { USE_OBJECT_URLS = false; }
-
+  
   var TEMPLATE = {
-    cols: 3,
-    rows: 4,
-    innerDia: 2.5,
-    outerDia: 2.5,
-    gapX: 0.15,
-    gapY: 0.15,
+    cols: 2,
+    rows: 3,
+    innerDia: 3.0,
+    outerDia: 3.5,
+    gapX: 0.65,
+    gapY: 0.10,
     dpi: 300,
     previewScale: 0.9,
-    showInnerRing: false,
+    showInnerRing: true,
     showInnerRingInPdf: false,
-    imageFitDiameter: 'outer'
+    imageFitDiameter: 'inner'
   };
 
   var root = document.documentElement;
@@ -48,8 +49,8 @@
       buildGridForPage,
       deletePage,
       SHOW_DELETE_CONFIRM
-  );
-}
+    );
+  }
 
   function buildGridForPage(page){
     page.gridEl.innerHTML = '';
@@ -67,8 +68,8 @@
         cell.dataset.index = i;
         cell.tabIndex = 0;
         cell.setAttribute('role', 'button');
-        cell.setAttribute('aria-label', 'Sticker circle ' + (i+1));
-        
+        cell.setAttribute('aria-label', 'Image circle ' + (i+1));
+
         addRings(cell, TEMPLATE);
 
         var input = document.createElement('input');
@@ -85,10 +86,10 @@
           }
 
           if(!isSupportedImageFile(file)) { 
-              alert('Use JPG/PNG/WebP.'); 
-              input.value=''; 
-              input.blur(); 
-              return; 
+            alert('Use JPG/PNG/WebP.'); 
+            input.value=''; 
+            input.blur(); 
+            return; 
           }
 
           loadFileWithFallback(
@@ -101,9 +102,9 @@
             input.value = '';
             input.blur();
           });
+
         });
         cell.appendChild(input);
-
         cell.addEventListener('keydown', function(ev){
           if (ev.key === 'Enter' || ev.key === ' ') {
             if (page.state[i].img) { ev.preventDefault(); return; }
@@ -111,11 +112,10 @@
             input.click();
           }
         });
-
-        img.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); });
         input.addEventListener('click', function(ev){ ev.stopPropagation(); });
-
-         var toolbar = createToolbar();
+        img.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); });
+        
+        var toolbar = createToolbar();
 
         var tb = toolbar.toolbar;
         var delBtn = toolbar.deleteButton;
@@ -126,12 +126,11 @@
         cell.appendChild(tb);
 
         tb.addEventListener('mousedown', 
-        function(e){ 
-          if (e.target && e.target.tagName === 'BUTTON') e.preventDefault(); 
-          e.stopPropagation(); 
-        });
-
-        // Add duplicate button in top-right
+          function(e){ 
+            if (e.target && e.target.tagName === 'BUTTON') e.preventDefault(); 
+            e.stopPropagation(); 
+          });
+        
         var dupBtn = createDuplicateButton();
         cell.appendChild(dupBtn);
 
@@ -139,7 +138,6 @@
         zoomOutBtn.addEventListener('click', function(e){ e.stopPropagation(); adjustZoom(page, i, 1/1.1); });
         centerBtn.addEventListener('click', function(e){ e.stopPropagation(); resetTransform(page, i); });
 
-        // Drag to pan
         setupImageDrag(
           img,
           page,
@@ -182,44 +180,42 @@
             input.blur();
           });
         });
-
         delBtn.addEventListener('click', function(e){ e.stopPropagation(); clearCell(page, i); });
-  dupBtn.addEventListener('click', function(e){ e.stopPropagation(); duplicateToNext(page, i); });
+        dupBtn.addEventListener('click', function(e){ e.stopPropagation(); duplicateToNext(page, i); });
         page.gridEl.appendChild(cell);
         page.cells.push({ cell: cell, empty: empty, imgWrap: imgWrap, img: img, fitBox: fitBox, tb: tb, input: input });
-        // Ensure fitBox uses the outer diameter size in preview
+
         setFitBoxSize(fitBox, TEMPLATE);
 
-        applyTransformVars(page, i);
+        try{ applyTransformVars(page, i); }catch(_){ }
       })(i);
     }
   }
 
   var page0 = createPage();
   document.getElementById('addPage').addEventListener('click', function(){ createPage(); });
-
+  
   function deletePage(page){
     sharedDeletePage(
       page,
       pages,
       pagesWrap,
       createPage
-    );
+    )
   }
-
   var bulkInputEl = document.getElementById('bulkInput');
   bulkInputEl.addEventListener('change', function(e){
     var files = Array.prototype.slice.call(
       e.target.files || []
     ).filter(isSupportedImageFile);
-
+    
     if(!files.length) return;
-
+    
     bulkAddFilesAllPages(files).finally(function(){ 
       try { e.target.value=''; } catch(_){} 
     });
   });
-
+  
   function planPagesNeeded(currentEmpty, filesCount){
     return sharedPlanPagesNeeded(
       currentEmpty,
@@ -249,6 +245,7 @@
       loadImageToCell
     );
   }
+
   function findNextEmptySlot(startPage, startIdx){
     return sharedFindNextEmptySlot(
       pages,
@@ -260,14 +257,14 @@
 
   function duplicateToNext(page, index){
     sharedDuplicateToNext(
-      page, 
+      page,
       index,
       findNextEmptySlot,
       loadImageToCell,
       applyTransformVars
     );
   }
-
+  
   function clearCell(page, index){
     sharedClearCell(
       page,
@@ -275,9 +272,9 @@
       applyTransformVars
     );
   }
-
+  
   function loadImageToCell(page, index, src){
-    return sharedLoadImageToCell (
+    return sharedLoadImageToCell(
       page,
       index,
       src,
@@ -291,7 +288,7 @@
 
   document.getElementById('exportPDF').addEventListener('click', function(){
     var proposed = sharedGetExportFilename(
-      'sticker-2in-3x4.pdf',
+      'circle-template-2x3-3in.pdf',
       sanitizeFilename
     );
 
@@ -299,13 +296,17 @@
       proposed,
       sanitizeFilename
     ).then(function(chosen){
-      if(!chosen) return;
+      if(!chosen) 
+        return;
+
       var filename = sanitizeFilename(chosen);
+
       var g = sharedComputeExportGeometry(root, TEMPLATE);
+
       var pdf = new window.jspdf.jsPDF({ orientation: 'p', unit: 'pt', format: [8.5*72, 11*72] });
       function renderOnePage(pageIndex){
       var page = pages[pageIndex];
-      
+
       var pdfCanvas = sharedCreatePdfCanvas(g);
       var canvas = pdfCanvas.canvas;
       var ctx = pdfCanvas.ctx;
@@ -324,12 +325,13 @@
           );
           return;
         }
+
         var i = r*COLS + c;
 
         var cellGeometry = getCellGeometry(g, r, c);
 
         var cellState = page.state[i];
-
+        
         sharedDrawPdfCell(
           ctx,
           cellState,
@@ -345,6 +347,7 @@
             }
           }
         );
+        
       }
       drawCell(0,0);
     }
@@ -352,20 +355,21 @@
       renderOnePage(0);
     });
   });
-
+  
   function applyTransformVars(page, index){
     updateTransformVars(page, index, root, TEMPLATE);
   }
 
-  function adjustZoom(page, index, factor) {
+  function adjustZoom(page, index, factor){
     sharedAdjustZoom(page, index, factor, root, TEMPLATE);
   }
 
-  function setOffset(page, index, nx, ny) {
+  function setOffset(page, index, nx, ny){
     sharedSetOffset(page, index, nx, ny, root, TEMPLATE);
   }
-
-  function resetTransform(page, index) {
+  
+  function resetTransform(page, index){
     sharedResetTransform(page, index, root, TEMPLATE);
   }
+
 })();
