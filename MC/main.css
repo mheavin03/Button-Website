@@ -28,7 +28,7 @@
 }
 * { box-sizing: border-box; }
 body { 
-  min-width: 740px;
+  /*min-width: 740px;*/
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
   margin: 0; 
   background: var(--background-color); 
@@ -80,7 +80,11 @@ button:active, label.btn:active { transform: translateY(1px); }
 .tool-wrapper button, label.btn { 
   display: inline-flex; 
   width: var(--toolbar-btn-size); 
-  height: var(--toolbar-btn-size); background: var(--secondary-color); color: #fff; border: 1px solid var(--mc-red); border-radius: 10px; cursor: pointer; font-weight: 600; transition: transform .05s ease, background .2s ease; align-items: center; justify-content: center;
+  height: var(--toolbar-btn-size); 
+  background: var(--secondary-color); 
+  color: #fff; border: 1px solid var(--mc-red); 
+  border-radius: 10px; cursor: pointer; 
+  font-weight: 600; transition: transform .05s ease, background .2s ease; align-items: center; justify-content: center;
 }
 
 .separator {
@@ -181,28 +185,78 @@ button:active, label.btn:active { transform: translateY(1px); }
 .add-row { display: grid; place-items: center; }
 #addPage { background:#1f9d5b; border-color:#27b66a; padding: 10px;}
 #addPage:hover{ background:#25b068; }
-aside { background: var(--primary-dark-color); border: 1px solid var(--mc-red); border-radius: 12px;  margin: 50px; padding: 14px; height: fit-content; position: sticky; top: 72px; }
-aside h2 { font-size: 14px; margin: 0 0 10px; letter-spacing: .2px; color: #cfe0ff; }
 .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; margin: 8px 0; }
 .row input[type="number"], .row input[type="text"]{ width: 110px; background: #0b132b; color: #e8ecf8; border: 1px solid #2a3765; border-radius: 8px; padding: 6px 8px; }
 .row code { background: #0b132b; border: 1px solid #2a3765; padding: 2px 6px; border-radius: 6px; }
 footer { padding: 12px 18px; color: #9fb0e8; border-top: 1px solid #1e2948; font-size: 12px; }
 a.link { color: #cfe0ff; }
 @media (max-width: 700px) {
+  :root {
+    --toolbar-btn-size: 40px;
+  }
   main {
     padding-left: 12px;
     padding-right: 12px;
     box-sizing: border-box;
   }
-
-  aside#sidebar {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin: 0 auto 18px auto;
-    padding-left: 0;
-    padding-right: 0;
+  .stage-wrap { 
+    display: grid; 
+    place-items: center; 
+    align-content: start; 
+    gap: 18px; 
+    margin: 16px;
   }
+
+  #title {
+    height: 30px;
+    font-size: 10px;
+  }
+
+  .tool-wrapper .description {
+    font-size: 0;
+    visibility: hidden;
+  }
+
+  .separator {
+    margin: 0 5px;
+    width: 0.5px;
+    height: calc(var(--toolbar-btn-size) + (.25 * 15px));
+    background-color: var(--mc-white-2);
+  }
+
+  .cell .empty { 
+    color: #7b89b8; 
+    font-size: 6px; 
+    text-align: center; 
+    padding: 6px; 
+  }
+
+  .page .page-del { 
+    position: absolute; 
+    top: 8px; 
+    right: 8px; 
+    font-size: 8px; 
+    padding: 6px 8px; 
+    border-radius: 8px; 
+    background:#8a2b39; 
+    border:1px solid #a33b4b; 
+    z-index: 20; 
+    pointer-events: auto; 
+  }
+
+  .cell .toolbar button { 
+    padding: 4px 8px; 
+    border-radius: 999px; 
+    background: #3a4a86; 
+    border: 1px solid #5063a8; 
+    font-size: 8px; 
+    pointer-events: auto; 
+  }
+
+  .cell .dup-btn { 
+    font-size: 8px; 
+  }
+
 }
 
 /* Filename Prompt Modal */

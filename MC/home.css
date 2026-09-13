@@ -178,7 +178,18 @@ li p {
     .outer { stroke: #2a49d0; stroke-width: 2; fill: none; }
     .inner { stroke: #e63c3c; stroke-width: 2; fill: none; }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+@media (max-width: 700px) {
+    #menu-icon {
+        width: 0;
+        visibility: hidden;
+    }
+    .menu-width {
+        width: 0;
+    }
+
+    .menu-margin {
+        margin-right: 0;
+    }
+    .sidenav {padding-top: 15px; visibility: hidden;}
+    .sidenav a {font-size: 18px;}
 }
