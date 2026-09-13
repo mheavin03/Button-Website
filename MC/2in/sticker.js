@@ -23,7 +23,8 @@
     previewScale: 0.9,
     showInnerRing: false,
     showInnerRingInPdf: false,
-    imageFitDiameter: 'outer'
+    imageFitDiameter: 'outer',
+    cutGuideDirection: 'vertical'
   };
 
   var root = document.documentElement;
@@ -32,6 +33,10 @@
   var ROWS = TEMPLATE.rows;
 
   applyTemplateCssVars(root, TEMPLATE);
+
+  window.addEventListener('resize', function () {
+    updatePreviewScale(root, TEMPLATE);
+  });
 
   var pages = [];
   var pagesWrap = document.getElementById('pages');
@@ -312,6 +317,9 @@
 
       function drawCell(r, c){
         if(r >= ROWS){
+
+          drawPdfCutGuides(ctx, g, TEMPLATE);
+
           sharedFinishPdfPage(
             pdf,
             canvas,

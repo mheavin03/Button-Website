@@ -24,7 +24,8 @@
     previewScale: 0.9,
     showInnerRing: true,
     showInnerRingInPDF: false,
-    imageFitDiameter: 'inner'
+    imageFitDiameter: 'inner',
+    cutGuideDirection: 'vertical'
   };
 
   var root = document.documentElement;
@@ -313,6 +314,9 @@
 
       function drawCell(r, c){
         if(r >= ROWS){
+
+          drawPdfCutGuides(ctx, g, TEMPLATE);
+
           sharedFinishPdfPage(
             pdf,
             canvas,

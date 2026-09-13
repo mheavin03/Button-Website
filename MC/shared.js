@@ -461,16 +461,18 @@ function sharedDeletePage(page, pages, pagesWrap, createPage) {
 }
 
 function setFitBoxSize(fitBox, template) {
-    var fitVariable =
-        template.imageFitDiameter === 'inner'
-            ? '--inner-dia'
-            : '--outer-dia';
+    // Fit-box size is controlled entirely by CSS.
+    // The CSS variable --preview-scale updates automatically on resize.
+    // var fitVariable =
+    //     template.imageFitDiameter === 'inner'
+    //         ? '--inner-dia'
+    //         : '--outer-dia';
 
-    fitBox.style.width =
-        'calc(var(' + fitVariable + ') * var(--preview-scale))';
+    // fitBox.style.width =
+    //     'calc(var(' + fitVariable + ') * var(--preview-scale))';
 
-    fitBox.style.height =
-        'calc(var(' + fitVariable + ') * var(--preview-scale))';
+    // fitBox.style.height =
+    //     'calc(var(' + fitVariable + ') * var(--preview-scale))';
 }
 
 function addRings(cell, template) {
@@ -805,6 +807,46 @@ function sharedGetExportFilename(defaultName, sanitizeFilename) {
   return sanitizeFilename(defaultName || 'export.pdf');
 }
 
+function drawPdfCutGuides(ctx, g, template) {
+  if (!template.cutGuideDirection) return;
+
+  ctx.save();
+
+  ctx.strokeStyle = '#888';
+  ctx.lineWidth = Math.max(2, g.DPI / 150);
+  ctx.setLineDash([g.DPI / 20, g.DPI / 20]);
+
+  if (template.cutGuideDirection === 'vertical') {
+    for (var c = 0; c < template.cols - 1; c++) {
+      var x =
+        g.marginX +
+        (c + 1) * g.outerDiaPx +
+        (c + 0.5) * g.gapXPx;
+
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, g.pageHpx);
+      ctx.stroke();
+    }
+  }
+
+  if (template.cutGuideDirection === 'horizontal') {
+    for (var r = 0; r < template.rows - 1; r++) {
+      var y =
+        g.marginY +
+        (r + 1) * g.outerDiaPx +
+        (r + 0.5) * g.gapYPx;
+
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(g.pageWpx, y);
+      ctx.stroke();
+    }
+  }
+
+  ctx.restore();
+}
+
 function getCellGeometry(g, row, col) {
   var x = g.marginX + col * (g.outerDiaPx + g.gapXPx);
   var y = g.marginY + row * (g.outerDiaPx + g.gapYPx);
@@ -1054,6 +1096,39 @@ function setCssVar(root, name, val) {
   root.style.setProperty(name, val);
 }
 
+function calculatePreviewScale(root, template) {
+  var pageWidthIn = parseFloat(
+    getComputedStyle(root).getPropertyValue('--page-width-in')
+  );
+
+  if (!pageWidthIn || pageWidthIn <= 0) {
+    return template.previewScale || 0.9;
+  }
+
+  var pageWidthPx = pageWidthIn * 96;
+
+  var stage = document.querySelector('.stage-wrap');
+  var availableWidth = stage
+    ? stage.clientWidth
+    : window.innerWidth - 40;
+
+  if (availableWidth <= 0) {
+    return template.previewScale || 0.9;
+  }
+
+  var scale = availableWidth / pageWidthPx;
+
+  console.log('PREVIEW SCALE:', {
+      windowWidth: window.innerWidth,
+      stageWidth: availableWidth,
+      pageWidthPx: pageWidthPx,
+      scale: scale,
+      finalScale: Math.min(scale, template.previewScale || 0.9)
+  });
+
+  return Math.min(scale, template.previewScale || 0.9);
+}
+
 function applyTemplateCssVars(root, template) {
   setCssVar(root, '--cols', template.cols);
   setCssVar(root, '--rows', template.rows);
@@ -1062,5 +1137,9 @@ function applyTemplateCssVars(root, template) {
   setCssVar(root, '--gap-x-in', template.gapX);
   setCssVar(root, '--gap-y-in', template.gapY);
   setCssVar(root, '--dpi', template.dpi);
-  setCssVar(root, '--preview-scale', template.previewScale);
+  setCssVar(root, '--preview-scale', calculatePreviewScale(root, template));
+}
+
+function updatePreviewScale(root, template) {
+  setCssVar(root, '--preview-scale', calculatePreviewScale(root, template));
 }

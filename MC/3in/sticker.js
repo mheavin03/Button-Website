@@ -22,7 +22,8 @@
     previewScale: 0.9,
     showInnerRing: false,
     showInnerRingInPdf: false,
-    imageFitDiameter: 'outer'
+    imageFitDiameter: 'outer',
+    cutGuideDirection: 'horizontal'
   };
 
   var LAYOUT = [2, 1, 2];
@@ -417,6 +418,7 @@
             };
 
             await new Promise(function(resolve){
+              
               sharedDrawPdfCell(
                 ctx,
                 cellState || { img: null },
@@ -432,6 +434,8 @@
             k++;
           }
         }
+        drawPdfCutGuides(ctx, g, TEMPLATE);
+        
         var imgData = canvas.toDataURL('image/jpeg', 0.95);
         if(pageIndex > 0) pdf.addPage([8.5*72, 11*72], 'p');
         pdf.addImage(imgData, 'JPEG', 0, 0, 8.5*72, 11*72);

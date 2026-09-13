@@ -13,6 +13,11 @@
   --inner-dia: calc(var(--inner-dia-in) * 96px);
   --outer-dia: calc(var(--outer-dia-in) * 96px);
 
+  --gap-x-preview: calc(var(--gap-x) * var(--preview-scale));
+  --gap-y-preview: calc(var(--gap-y) * var(--preview-scale));
+  --inner-dia-preview: calc(var(--inner-dia) * var(--preview-scale));
+  --outer-dia-preview: calc(var(--outer-dia) * var(--preview-scale));
+
   --background-color: #599bd2;
   --primary-color: #428bc8; 
   --secondary-color: #2a7abd;
@@ -23,6 +28,7 @@
 }
 * { box-sizing: border-box; }
 body { 
+  min-width: 740px;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
   margin: 0; 
   background: var(--background-color); 
@@ -89,36 +95,80 @@ button:active, label.btn:active { transform: translateY(1px); }
   place-items: center; 
   align-content: start; 
   gap: 18px; 
-  padding-bottom: 16px; 
+  padding-bottom: 16px;
 }
 
-#pages { display: grid; gap: 18px; }
+#pages { 
+  display: grid; 
+  gap: 18px;
+}
 .page { position: relative; width: calc(var(--page-w) * var(--preview-scale)); height: calc(var(--page-h) * var(--preview-scale)); background: white; color: black; box-shadow: 0 10px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset; border-radius: 8px; overflow: hidden; }
 .page .page-del { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 6px 8px; border-radius: 8px; background:#8a2b39; border:1px solid #a33b4b; z-index: 20; pointer-events: auto; }
 .page .page-del:hover{ background:#a33b4b; }
-.grid { position: absolute; inset: 0; display: grid; place-items: center; 
-  grid-template-columns: repeat(var(--cols), calc(var(--outer-dia) * var(--preview-scale)));
-  grid-template-rows: repeat(var(--rows), calc(var(--outer-dia) * var(--preview-scale)));
+
+.grid { 
+  position: absolute; 
+  inset: 0; 
+  display: grid; 
+  place-items: center; 
+  grid-template-columns: repeat(var(--cols), calc(var(--outer-dia-preview)));
+  grid-template-rows: repeat(var(--rows), calc(var(--outer-dia-preview)));
   /* Always center the entire grid area within the page regardless of gap */
   place-content: center;
-  gap: var(--gap-y) var(--gap-x); z-index: 0; }
-.cell { width: calc(var(--outer-dia) * var(--preview-scale)); height: calc(var(--outer-dia) * var(--preview-scale)); border-radius: 999px; position: relative; border: 1px dashed #c5cde8; display: grid; place-items: center; overflow: visible; background: #f6f8ff; font-size: 13px; }
+  gap: var(--gap-y-preview) var(--gap-x-preview); 
+  z-index: 0; 
+}
+
+.cell { 
+  width: var(--outer-dia-preview);
+  height: var(--outer-dia-preview);
+  border-radius: 999px; 
+  position: relative; 
+  border: 1px dashed #c5cde8; 
+  display: grid; 
+  place-items: center; 
+  overflow: visible; 
+  background: #f6f8ff; 
+  font-size: 13px; 
+}
+
 .cell .empty { color: #7b89b8; font-size: 12px; text-align: center; padding: 6px; }
-.img-wrap { position: absolute; left: 50%; top: 50%; width: calc(var(--outer-dia) * var(--preview-scale)); height: calc(var(--outer-dia) * var(--preview-scale)); transform: translate(-50%, -50%); border-radius: 999px; overflow: hidden; display: none; }
+
+.img-wrap { 
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  width: var(--outer-dia-preview);
+  height: var(--outer-dia-preview);
+  transform: translate(-50%, -50%);
+  border-radius: 999px; 
+  overflow: hidden; 
+  display: none; 
+}
+
 .img-wrap img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; }
 .img-wrap img:active{ cursor: grabbing; }
 .fit-box { 
   position: absolute; 
   left: 50%; 
   top: 50%; 
-  width: calc(var(--outer-dia) * var(--preview-scale)); 
-  height: calc(var(--outer-dia) * var(--preview-scale)); 
-  transform: translate(-50%, -50%) translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--scale, 1)); 
+  width: var(--outer-dia-preview);
+  height: var(--outer-dia-preview);
+  transform: translate(-50%, -50%) 
+    translate(var(--tx, 0px), var(--ty, 0px)) 
+    scale(var(--scale, 1)); 
   transition: none; }
 .img-wrap img:active{ cursor: grabbing; }
 .ring-outer, .ring-inner { position: absolute; border-radius: 999px; pointer-events: none; box-sizing: border-box; }
 .ring-outer { width: 100%; height: 100%; border: 2px solid rgba(30,70,200,.9); }
-.ring-inner { width: calc(var(--inner-dia) * var(--preview-scale)); height: calc(var(--inner-dia) * var(--preview-scale)); border: 2px solid rgba(230,60,60,.95); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.ring-inner { 
+  width: var(--inner-dia-preview);
+  height: var(--inner-dia-preview);
+  border: 2px solid rgba(230,60,60,.95); 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%); 
+}
 .file-overlay { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 5; }
 .cell.has-image .file-overlay { display: none !important; pointer-events: none !important; }
 .cell .toolbar { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; background: rgba(6,10,26,.75); border: 1px solid rgba(255,255,255,.18); padding: 4px 6px; border-radius: 999px; backdrop-filter: blur(4px); opacity: 0; transition: opacity .2s ease; z-index: 10; pointer-events: none; }
@@ -139,8 +189,20 @@ aside h2 { font-size: 14px; margin: 0 0 10px; letter-spacing: .2px; color: #cfe0
 footer { padding: 12px 18px; color: #9fb0e8; border-top: 1px solid #1e2948; font-size: 12px; }
 a.link { color: #cfe0ff; }
 @media (max-width: 700px) {
-  main { padding-left: 12px; padding-right: 12px; box-sizing: border-box; }
-  .page, aside#sidebar { width: 100%; max-width: 100%; box-sizing: border-box; margin: 0 auto 18px auto; padding-left: 0; padding-right: 0; }
+  main {
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  aside#sidebar {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto 18px auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /* Filename Prompt Modal */
