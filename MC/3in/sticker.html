@@ -11,12 +11,13 @@
 </head>
 <body>
   <div id="mySidenav" class="sidenav menu-width">
+    <div id="instructions">
      <h1 class="sidenav-h1">Instructions</h1>
-      <h2 class="sidenav-h2">3in Sticker</h2>
-      <p class="sidenav-p">
-        To start either click inside a circle to add an image or click 
-        <span class="material-symbols-outlined">folder_open</span>
-        , to add multiple images at once.
+     <h2 class="sidenav-h2">3in Sticker</h2>
+     <p class="sidenav-p">
+       To start either click inside a circle to add an image or click 
+       <span class="material-symbols-outlined">folder_open</span>
+       , to add multiple images at once.
       </p>
       <div class="sidenav-spacer"></div>
       <p class="sidenav-p">
@@ -37,6 +38,55 @@
         button at the top right of the screen and 
         email <a href="mailto:mediacenter@harding.edu">mediacenter@harding.edu</a> the template! 
       </p>
+    </div>
+    <div id="settings" class="settings hidden">
+     <div id="templateSettingsPanel" class="settings-panel" >
+       <label>
+         Sticker diameter (in)
+         <input id="settingOuterDia" type="number" step="0.01">
+       </label>
+    
+       <label>
+         Horizontal gap (in)
+         <input id="settingGapX" type="number" step="0.01">
+       </label>
+    
+       <label>
+         Vertical gap (in)
+         <input id="settingGapY" type="number" step="0.01">
+       </label>
+    
+       <label>
+         Preview scale
+         <input id="settingPreviewScale" type="number" step="0.01" min="0.1" max="1">
+       </label>
+    
+       <label>
+         Image fit
+         <select id="settingImageFit">
+           <option value="outer">Outer</option>
+           <option value="inner">Inner</option>
+         </select>
+       </label>
+    
+       <label>
+         Cut guides
+         <select id="settingCutGuide">
+           <option value="horizontal">Horizontal</option>
+           <option value="vertical">Vertical</option>
+           <option value="">None</option>
+         </select>
+       </label>
+    
+       <div class="settings-buttons">
+    
+         <button type="button" id="resetTemplateSettings" onclick="resetTemplateSettings()">
+           Reset
+         </button>
+       </div>
+     </div>
+    </div>
+    <button class="settings-btn" onclick="toggleSettings()"><span class="material-symbols-outlined">settings</span></button>
   </div>
   <header>
     <div class="left">

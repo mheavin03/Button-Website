@@ -32,7 +32,7 @@ body {
     top: 0;
     right: 0;
     background-color: var(--primary-color);
-    overflow-x: hidden;
+    overflow: hidden;
     padding-top: 90px;
     transition: 0.5s;
     justify-content: center;
@@ -116,6 +116,46 @@ li p {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+.settings-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-panel label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.settings-panel input,
+.settings-panel select {
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.settings-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.settings {
+    margin: 10px;
+}
+
+.hidden {
+    visibility: collapse;
+    height: 0;
 }
 
 .menu-width {

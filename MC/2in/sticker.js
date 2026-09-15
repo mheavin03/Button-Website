@@ -29,6 +29,117 @@
 
   var root = document.documentElement;
 
+  var DEFAULT_TEMPLATE = Object.assign({}, TEMPLATE);
+
+  function loadTemplateSettingsIntoPanel() {
+
+    document.getElementById('settingOuterDia').value =
+      TEMPLATE.outerDia;
+
+    document.getElementById('settingGapX').value =
+      TEMPLATE.gapX;
+
+    document.getElementById('settingGapY').value =
+      TEMPLATE.gapY;
+
+    document.getElementById('settingPreviewScale').value =
+      TEMPLATE.previewScale;
+
+    document.getElementById('settingImageFit').value =
+      TEMPLATE.imageFitDiameter;
+
+    document.getElementById('settingCutGuide').value =
+      TEMPLATE.cutGuideDirection;
+  }
+
+  window.applyTemplateSettings = function() {
+    
+    var outerDia = parseFloat(
+      document.getElementById('settingOuterDia').value
+    );
+
+    var gapX = parseFloat(
+      document.getElementById('settingGapX').value
+    );
+
+    var gapY = parseFloat(
+      document.getElementById('settingGapY').value
+    );
+
+    var previewScale = parseFloat(
+      document.getElementById('settingPreviewScale').value
+    );
+
+    if (!Number.isFinite(outerDia) ||
+        !Number.isFinite(gapX) ||
+        !Number.isFinite(gapY) ||
+        !Number.isFinite(previewScale)) {
+      alert('Please enter valid numbers.');
+      return;
+    }
+
+    TEMPLATE.innerDia = outerDia;
+    TEMPLATE.outerDia = outerDia;
+    TEMPLATE.gapX = gapX;
+    TEMPLATE.gapY = gapY;
+    TEMPLATE.previewScale = previewScale;
+    TEMPLATE.imageFitDiameter =
+      document.getElementById('settingImageFit').value;
+    TEMPLATE.cutGuideDirection =
+      document.getElementById('settingCutGuide').value;
+
+    updateExistingTemplateLayout();
+  }
+
+  window.resetTemplateSettings = function () {
+    TEMPLATE.outerDia = DEFAULT_TEMPLATE.outerDia;
+    TEMPLATE.innerDia = DEFAULT_TEMPLATE.innerDia;
+    TEMPLATE.gapX = DEFAULT_TEMPLATE.gapX;
+    TEMPLATE.gapY = DEFAULT_TEMPLATE.gapY;
+    TEMPLATE.previewScale = DEFAULT_TEMPLATE.previewScale;
+    TEMPLATE.imageFitDiameter =
+      DEFAULT_TEMPLATE.imageFitDiameter;
+    TEMPLATE.cutGuideDirection =
+      DEFAULT_TEMPLATE.cutGuideDirection;
+
+    applyTemplateCssVars(root, TEMPLATE);
+    loadTemplateSettingsIntoPanel();
+    updateExistingTemplateLayout();
+  }
+
+  function updateExistingTemplateLayout() {
+      applyTemplateCssVars(root, TEMPLATE);
+
+      pages.forEach(function(page) {
+          page.cells.forEach(function(item) {
+              item.cell.style.width = '';
+              item.cell.style.height = '';
+
+              if (item.fitBox) {
+                  setFitBoxSize(item.fitBox, root, TEMPLATE);
+              }
+          });
+
+          for (var i = 0; i < page.state.length; i++) {
+              updateTransformVars(page, i, root, TEMPLATE);
+          }
+      });
+  }
+
+  document.getElementById('settingOuterDia').addEventListener('input', applyTemplateSettings);
+  document.getElementById('settingGapX').addEventListener('input', applyTemplateSettings);
+  document.getElementById('settingGapY').addEventListener('input', applyTemplateSettings);
+  document.getElementById('settingPreviewScale').addEventListener('input', applyTemplateSettings);
+
+  document.getElementById('settingImageFit').addEventListener('change', applyTemplateSettings);
+  document.getElementById('settingCutGuide').addEventListener('change', applyTemplateSettings);
+
+  document.getElementById('resetTemplateSettings')
+    .addEventListener('click', function() {
+      resetTemplateSettings();
+    });
+
+
   var COLS = TEMPLATE.cols;
   var ROWS = TEMPLATE.rows;
 
@@ -375,5 +486,15 @@
 
   function resetTransform(page, index) {
     sharedResetTransform(page, index, root, TEMPLATE);
+  }
+
+  window.toggleSettings = function() {
+    var instructions = document.querySelector("#instructions");
+    instructions.classList.toggle("hidden");
+
+    var settings = document.querySelector("#settings");
+    settings.classList.toggle("hidden");
+
+    loadTemplateSettingsIntoPanel();
   }
 })();

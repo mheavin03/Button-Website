@@ -87,12 +87,6 @@ function updateTransformVars(page, index, root, template){
     
     var fitPx = parsePxVar(fitDiaStr, 192);
 
-    console.log('FIT DIAMETER:', {
-      fitDiaStr: fitDiaStr,
-      fitPx: fitPx,
-      imageFitDiameter: template.imageFitDiameter
-    });
-
     var previewScaleStr = 
       getComputedStyle(root).getPropertyValue('--preview-scale');
 
@@ -571,16 +565,6 @@ function setupImageDrag(img, page, index, root, template, setOffset) {
     var nx = baseNx + dx / denom;
     var ny = baseNy + dy / denom;
 
-    console.log('DRAG:', {
-      dx: dx,
-      dy: dy,
-      baseNx: baseNx,
-      baseNy: baseNy,
-      denom: denom,
-      nx: nx,
-      ny: ny
-    });
-
     setOffset(page, index, nx, ny);
   });
 
@@ -899,14 +883,6 @@ function getImageDrawGeometry(img, cellState, g, template, cellGeometry) {
 
   var fitDiaForOffset = fitDiaPx;
 
-  console.log('PDF:', {
-    nx: nx,
-    fitDiaPx: fitDiaPx,
-    previewScale: previewScale,
-    pdfOffsetX: nx * fitDiaForOffset,
-    pdfOffsetY: ny * fitDiaForOffset
-  });
-
   var dx =
     cellGeometry.cx -
     dw / 2 +
@@ -1117,14 +1093,6 @@ function calculatePreviewScale(root, template) {
   }
 
   var scale = availableWidth / pageWidthPx;
-
-  console.log('PREVIEW SCALE:', {
-      windowWidth: window.innerWidth,
-      stageWidth: availableWidth,
-      pageWidthPx: pageWidthPx,
-      scale: scale,
-      finalScale: Math.min(scale, template.previewScale || 0.9)
-  });
 
   return Math.min(scale, template.previewScale || 0.9);
 }
