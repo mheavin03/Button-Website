@@ -17,7 +17,7 @@
     cols: 2,
     rows: 3,
     innerDia: 3.0,
-    outerDia: 3.5,
+    outerDia: 3.45,
     gapX: 0.65,
     gapY: 0.10,
     dpi: 300,

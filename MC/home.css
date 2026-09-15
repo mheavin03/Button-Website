@@ -1,13 +1,13 @@
 :root { 
     --topbar-offset: 64px;
     --sidenav-size: 300px;
-    --background-color: #599bd2;
-    --primary-color: #428bc8; 
-    --secondary-color: #2a7abd;
-    --primary-dark-color: #0d548e; 
-    --mc-white: #ffffff;
-    --mc-white-2: #f0f0f0;
-    --mc-red: #c00c0c;
+    --background-color: #031739;
+    --primary-color: #003365; 
+    --secondary-color: #003365;
+    --primary-dark-color: #003365; 
+    --mc-white: #f6f6f7;
+    --mc-white-2: #d6d9e1;
+    --mc-red: #c3bfbf;
 }
 
 * {box-sizing: border-box;}
@@ -209,8 +209,8 @@ li p {
     .card .meta { padding: 12px; display: grid; gap: 8px; }
     .card h2 { font-size: 16px; margin: 0; color: var(--mc-white); }
     .card p { margin: 0; color: var(--mc-white-2); font-size: 12px; }
-    .card a.btn { text-decoration: none; display: inline-block; background: var(--primary-dark-color); color: var(--mc-white); border: 1px solid var(--primary-dark-color); border-radius: 10px; font-weight: 600; padding: 8px 10px; text-align: center; }
-    .card a.btn:hover { background: var(--secondary-color); }
+    .card a.btn { text-decoration: none; display: inline-block; background: var(--background-color); color: var(--mc-white); border: 1px solid var(--mc-red); border-radius: 10px; font-weight: 600; padding: 8px 10px; text-align: center; }
+    .card a.btn:hover { background: var(--primary-color); }
   /* Scale SVG previews responsively and center them */
   .thumb { width: 100%; height: 100%; display: block; }
   .card .preview .thumb { margin: 0 auto; }

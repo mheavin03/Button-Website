@@ -17,7 +17,7 @@
     innerDia: 3.5,
     outerDia: 3.5,
     gapX: 0.65,
-    gapY: 0.15,
+    gapY: 0.0,
     dpi: 300,
     previewScale: 0.9,
     showInnerRing: false,
