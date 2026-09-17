@@ -156,8 +156,8 @@ button:active, label.btn:active { transform: translateY(1px); }
   position: absolute; 
   left: 50%; 
   top: 50%; 
-  width: var(--outer-dia-preview);
-  height: var(--outer-dia-preview);
+  width: var(--inner-dia-preview);
+  height: var(--inner-dia-preview);
   transform: translate(-50%, -50%) 
     translate(var(--tx, 0px), var(--ty, 0px)) 
     scale(var(--scale, 1)); 
